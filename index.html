@@ -39,7 +39,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:fl
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .nav-logo svg{width:32px;height:32px}
 .nav-logo-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;letter-spacing:-0.5px}
-.nav-logo-text span{color:var(--green);font-weight:200;letter-spacing:3px}
+.nav-logo-text span{color:var(--green);font-weight:200;letter-spacing:0px}.nav-logo-text{position:relative}.nav-logo-text::after{content:"";position:absolute;bottom:-3px;left:0;right:0;height:2px;background:var(--green)}
 .nav-links{display:flex;align-items:center;gap:32px}
 .nav-links a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s}
 .nav-links a:hover{color:white}
@@ -156,7 +156,7 @@ footer{border-top:1px solid var(--border);padding:60px 40px;position:relative;z-
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
 @media(max-width:768px){.footer-top{grid-template-columns:1fr}}
 .footer-brand .logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:white;letter-spacing:-0.5px;margin-bottom:12px}
-.footer-brand .logo span{color:var(--green);font-weight:200;letter-spacing:3px}
+.footer-brand .logo span{color:var(--green);font-weight:200}
 .footer-brand p{font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:280px}
 .footer-col h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px}
 .footer-col a{display:block;font-size:14px;color:rgba(255,255,255,0.55);text-decoration:none;margin-bottom:10px;transition:color 0.2s}
@@ -179,15 +179,7 @@ footer{border-top:1px solid var(--border);padding:60px 40px;position:relative;z-
 <!-- Nav -->
 <nav>
   <a href="/" class="nav-logo">
-    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="32" height="32" rx="8" fill="#0d1b2a"/>
-      <polygon points="16,4 24,8.5 24,17.5 16,22 8,17.5 8,8.5" fill="none" stroke="#22c55e" stroke-width="1.5"/>
-      <rect x="11" y="11" width="2" height="9" rx="0.5" fill="#22c55e"/>
-      <rect x="11" y="11" width="8" height="2" rx="0.5" fill="#22c55e"/>
-      <rect x="11" y="15" width="6" height="2" rx="0.5" fill="#22c55e"/>
-      <rect x="11" y="18" width="8" height="2" rx="0.5" fill="#22c55e"/>
-    </svg>
-    <div class="nav-logo-text">Edgify<span>OS</span></div>
+    <div class="nav-logo-text">Edgify<span>os</span></div>
   </a>
   <div class="nav-links">
     <a href="#products">Products</a>
@@ -418,7 +410,7 @@ footer{border-top:1px solid var(--border);padding:60px 40px;position:relative;z-
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <div class="logo">Edgify<span>OS</span></div>
+      <div class="logo">Edgify<span>os</span></div>
       <p>The operating system for B2B manufacturers. Orders, deliveries, factory, and payments — all connected.</p>
       <p style="margin-top:12px;color:rgba(255,255,255,0.25);font-size:13px">Jabalpur, Madhya Pradesh, India</p>
     </div>
