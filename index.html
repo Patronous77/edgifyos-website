@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EdgifyOS — The Operating System for B2B Manufacturers</title>
+<meta name="description" content="EdgifyOS powers B2B manufacturers with AI-driven ordering, delivery management, factory production, and financial reconciliation — all in one platform.">
+<meta property="og:title" content="EdgifyOS — B2B Operating System">
+<meta property="og:description" content="The complete operating system for B2B manufacturers. Orders, deliveries, factory, payments — all connected.">
+<meta property="og:url" content="https://edgifyos.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230d1b2a'/><polygon points='50,12 72,24 72,48 50,60 28,48 28,24' fill='none' stroke='%2322c55e' stroke-width='4'/><rect x='36' y='30' width='6' height='24' rx='2' fill='%2322c55e'/><rect x='36' y='30' width='22' height='6' rx='2' fill='%2322c55e'/><rect x='36' y='42' width='16' height='6' rx='2' fill='%2322c55e'/><rect x='36' y='48' width='22' height='6' rx='2' fill='%2322c55e'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #0d1b2a;
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.12);
+  --green-border: rgba(34,197,94,0.25);
+  --white: #ffffff;
+  --gray: #6b7280;
+  --light: #f0f9f4;
+  --surface: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0d1b2a;color:white;font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* ── GRID TEXTURE ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(34,197,94,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,0.03) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0
+}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo svg{width:32px;height:32px}
+.nav-logo-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;letter-spacing:-0.5px}
+.nav-logo-text span{color:var(--green);font-weight:200;letter-spacing:3px}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:white}
+.nav-cta{background:var(--green);color:#0d1b2a;padding:10px 24px;border-radius:50px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s}
+.nav-cta:hover{background:#16a34a;transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 40px 80px;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:50px;padding:6px 16px;font-size:13px;color:var(--green);font-weight:500;margin-bottom:32px;animation:fadeUp 0.6s ease both}
+.hero-badge-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+h1{font-family:'Syne',sans-serif;font-size:clamp(42px,7vw,88px);font-weight:800;line-height:1.0;letter-spacing:-3px;margin-bottom:24px;animation:fadeUp 0.6s 0.1s ease both;opacity:0}
+h1 .green{color:var(--green)}
+h1 .thin{font-weight:400;opacity:0.6}
+.hero-sub{font-size:clamp(16px,2vw,20px);color:rgba(255,255,255,0.55);max-width:580px;margin:0 auto 48px;line-height:1.7;animation:fadeUp 0.6s 0.2s ease both;opacity:0;font-weight:300}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.6s 0.3s ease both;opacity:0}
+.btn-primary{background:var(--green);color:#0d1b2a;padding:16px 36px;border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:#16a34a;transform:translateY(-2px)}
+.btn-secondary{background:transparent;color:white;padding:16px 36px;border-radius:50px;font-size:16px;font-weight:500;text-decoration:none;border:1px solid rgba(255,255,255,0.2);transition:all 0.2s}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.5);transform:translateY(-2px)}
+
+/* ── HERO VISUAL ── */
+.hero-visual{margin-top:80px;position:relative;animation:fadeUp 0.8s 0.4s ease both;opacity:0}
+.dashboard-preview{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px;max-width:900px;margin:0 auto;backdrop-filter:blur(10px)}
+.dash-header{display:flex;align-items:center;gap:8px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.dash-dot{width:10px;height:10px;border-radius:50%}
+.dash-title{font-size:13px;color:rgba(255,255,255,0.4);margin-left:8px;font-family:'Syne',sans-serif;font-weight:600;letter-spacing:1px}
+.dash-live{display:flex;align-items:center;gap:6px;margin-left:auto;font-size:12px;color:var(--green);font-weight:500}
+.dash-live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;border-bottom:3px solid var(--green)}
+.kpi-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:white}
+.kpi-label{font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+.dash-bottom{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.dash-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px}
+.dash-card-title{font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.order-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px}
+.order-row:last-child{border:none}
+.order-name{color:rgba(255,255,255,0.8)}
+.badge{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600}
+.badge-green{background:rgba(34,197,94,0.2);color:#22c55e}
+.badge-amber{background:rgba(245,158,11,0.2);color:#f59e0b}
+.badge-blue{background:rgba(59,130,246,0.2);color:#60a5fa}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12px}
+.bar-label{color:rgba(255,255,255,0.5);width:80px;text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;background:var(--green);border-radius:3px}
+.bar-val{color:rgba(255,255,255,0.7);width:40px;font-weight:500}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION ── */
+section{position:relative;z-index:1;padding:100px 40px}
+.section-tag{display:inline-block;background:var(--green-dim);border:1px solid var(--green-border);color:var(--green);font-size:12px;font-weight:700;letter-spacing:2px;padding:6px 14px;border-radius:50px;margin-bottom:20px;text-transform:uppercase}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;line-height:1.1;margin-bottom:16px}
+.section-sub{font-size:18px;color:rgba(255,255,255,0.5);font-weight:300;max-width:560px;line-height:1.7}
+.text-center{text-align:center}
+.text-center .section-sub{margin:0 auto}
+
+/* ── PRODUCTS ── */
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:60px}
+.product-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:36px;transition:all 0.3s;cursor:default}
+.product-card:hover{background:rgba(255,255,255,0.06);border-color:rgba(34,197,94,0.3);transform:translateY(-4px)}
+.product-card.featured{background:var(--green-dim);border-color:var(--green-border)}
+.product-icon{width:52px;height:52px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.product-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px;margin-bottom:4px}
+.product-tag{font-size:12px;color:var(--green);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.product-desc{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:24px}
+.product-features{list-style:none;space-y:8px}
+.product-features li{font-size:14px;color:rgba(255,255,255,0.5);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:8px}
+.product-features li::before{content:'';width:5px;height:5px;background:var(--green);border-radius:50%;flex-shrink:0}
+.product-link{display:inline-flex;align-items:center;gap:6px;color:var(--green);font-size:14px;font-weight:600;text-decoration:none;margin-top:20px}
+.product-link svg{transition:transform 0.2s}
+.product-link:hover svg{transform:translateX(4px)}
+
+/* ── FEATURES ── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+@media(max-width:768px){.features-grid{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.dash-bottom{grid-template-columns:1fr}.nav-links{display:none}}
+.feature{padding:32px;background:var(--surface);border:1px solid var(--border);border-radius:16px;transition:all 0.3s}
+.feature:hover{background:rgba(255,255,255,0.06);border-color:var(--green-border)}
+.feature-icon{font-size:28px;margin-bottom:16px}
+.feature-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px}
+.feature-desc{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7}
+
+/* ── STATS ── */
+.stats{background:var(--green-dim);border-top:1px solid var(--green-border);border-bottom:1px solid var(--green-border);padding:60px 40px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;max-width:900px;margin:0 auto;text-align:center}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-val{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:var(--green);letter-spacing:-2px}
+.stat-label{font-size:14px;color:rgba(255,255,255,0.5);margin-top:4px}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;margin-top:60px;position:relative}
+.steps::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--green-border),transparent)}
+.step{text-align:center;padding:0 20px}
+.step-num{width:64px;height:64px;border:1px solid var(--green-border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--green);background:#0d1b2a;position:relative;z-index:1}
+.step-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px}
+.step-desc{font-size:14px;color:rgba(255,255,255,0.45);line-height:1.6}
+
+/* ── CTA ── */
+.cta-section{text-align:center;padding:120px 40px;background:radial-gradient(ellipse at center,rgba(34,197,94,0.08) 0%,transparent 70%)}
+.cta-title{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;margin-bottom:20px}
+.cta-sub{font-size:18px;color:rgba(255,255,255,0.5);margin-bottom:48px;font-weight:300}
+.cta-form{display:flex;gap:12px;max-width:480px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.cta-input{flex:1;min-width:240px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:50px;padding:16px 24px;color:white;font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s}
+.cta-input::placeholder{color:rgba(255,255,255,0.3)}
+.cta-input:focus{border-color:var(--green)}
+.cta-btn{background:var(--green);color:#0d1b2a;padding:16px 32px;border-radius:50px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.cta-btn:hover{background:#16a34a;transform:translateY(-2px)}
+.cta-note{font-size:13px;color:rgba(255,255,255,0.3);margin-top:16px}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:60px 40px;position:relative;z-index:1}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+@media(max-width:768px){.footer-top{grid-template-columns:1fr}}
+.footer-brand .logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:white;letter-spacing:-0.5px;margin-bottom:12px}
+.footer-brand .logo span{color:var(--green);font-weight:200;letter-spacing:3px}
+.footer-brand p{font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:280px}
+.footer-col h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px}
+.footer-col a{display:block;font-size:14px;color:rgba(255,255,255,0.55);text-decoration:none;margin-bottom:10px;transition:color 0.2s}
+.footer-col a:hover{color:white}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:rgba(255,255,255,0.3)}
+
+/* ── ANNOUNCEMENT BAR ── */
+.announce{background:var(--green);color:#0d1b2a;text-align:center;padding:10px;font-size:13px;font-weight:600;letter-spacing:0.5px;position:relative;z-index:101}
+.announce a{color:#0d1b2a;text-decoration:underline;margin-left:8px}
+</style>
+</head>
+<body>
+
+<!-- Announcement -->
+<div class="announce">
+  Edgify B2B is now live for select manufacturers in Jabalpur.
+  <a href="#contact">Request early access →</a>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="8" fill="#0d1b2a"/>
+      <polygon points="16,4 24,8.5 24,17.5 16,22 8,17.5 8,8.5" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+      <rect x="11" y="11" width="2" height="9" rx="0.5" fill="#22c55e"/>
+      <rect x="11" y="11" width="8" height="2" rx="0.5" fill="#22c55e"/>
+      <rect x="11" y="15" width="6" height="2" rx="0.5" fill="#22c55e"/>
+      <rect x="11" y="18" width="8" height="2" rx="0.5" fill="#22c55e"/>
+    </svg>
+    <div class="nav-logo-text">Edgify<span>OS</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#products">Products</a>
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="https://edgify.vercel.app" class="nav-cta">Launch App →</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Now live · Jabalpur, India
+    </div>
+    <h1>The Operating System<br>for <span class="green">B2B</span> <span class="thin">Manufacturers</span></h1>
+    <p class="hero-sub">EdgifyOS connects your factory, field agents, and buyers in one intelligent platform. Orders flow in, deliveries go out, payments reconcile automatically.</p>
+    <div class="hero-actions">
+      <a href="https://edgify.vercel.app" class="btn-primary">Launch App →</a>
+      <a href="#products" class="btn-secondary">See Products</a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="dashboard-preview">
+        <div class="dash-header">
+          <div class="dash-dot" style="background:#ef4444"></div>
+          <div class="dash-dot" style="background:#f59e0b;margin-left:6px"></div>
+          <div class="dash-dot" style="background:#22c55e;margin-left:6px"></div>
+          <span class="dash-title">EDGIFY B2B — ADMIN DASHBOARD</span>
+          <div class="dash-live"><div class="dash-live-dot"></div>Live</div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-val">24</div><div class="kpi-label">Orders today</div></div>
+          <div class="kpi"><div class="kpi-val">₹48,200</div><div class="kpi-label">Revenue</div></div>
+          <div class="kpi"><div class="kpi-val">₹18,500</div><div class="kpi-label">Collected</div></div>
+          <div class="kpi" style="border-bottom-color:#ef4444"><div class="kpi-val" style="color:#ef4444">₹24,150</div><div class="kpi-label">Outstanding</div></div>
+        </div>
+        <div class="dash-bottom">
+          <div class="dash-card">
+            <div class="dash-card-title">Live order feed</div>
+            <div class="order-row"><span class="order-name">Hotel Aroma</span><span class="badge badge-green">Delivered</span><span style="color:rgba(255,255,255,0.7);font-size:13px">₹1,240</span></div>
+            <div class="order-row"><span class="order-name">Cafe Blues</span><span class="badge badge-blue">Dispatched</span><span style="color:rgba(255,255,255,0.7);font-size:13px">₹890</span></div>
+            <div class="order-row"><span class="order-name">Buggeese</span><span class="badge badge-amber">Pending</span><span style="color:rgba(255,255,255,0.7);font-size:13px">₹2,100</span></div>
+            <div class="order-row"><span class="order-name">Urban Scissors</span><span class="badge badge-green">Delivered</span><span style="color:rgba(255,255,255,0.7);font-size:13px">₹340</span></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-title">Revenue — 7 days</div>
+            <div class="bar-row"><span class="bar-label">Mon</span><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div><span class="bar-val">₹32k</span></div>
+            <div class="bar-row"><span class="bar-label">Tue</span><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div><span class="bar-val">₹41k</span></div>
+            <div class="bar-row"><span class="bar-label">Wed</span><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><span class="bar-val">₹28k</span></div>
+            <div class="bar-row"><span class="bar-label">Thu</span><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">₹48k</span></div>
+            <div class="bar-row"><span class="bar-label">Today</span><div class="bar-track"><div class="bar-fill" style="width:95%;background:#22c55e"></div></div><span class="bar-val" style="color:#22c55e">₹48k</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stats-grid">
+    <div><div class="stat-val">51</div><div class="stat-label">Areas covered in Jabalpur</div></div>
+    <div><div class="stat-val">5</div><div class="stat-label">Delivery zones mapped</div></div>
+    <div><div class="stat-val">100%</div><div class="stat-label">OTP-verified deliveries</div></div>
+    <div><div class="stat-val">AI</div><div class="stat-label">Powered by Gemini 2.5</div></div>
+  </div>
+</div>
+
+<!-- Products -->
+<section id="products" style="max-width:1200px;margin:0 auto">
+  <div class="text-center">
+    <div class="section-tag">Products</div>
+    <div class="section-title">One OS. Multiple Products.</div>
+    <div class="section-sub">EdgifyOS powers a suite of connected apps for every role in your business.</div>
+  </div>
+  <div class="products">
+    <div class="product-card featured">
+      <div class="product-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+      </div>
+      <div class="product-name">Edgify B2B</div>
+      <div class="product-tag">Core Product · Live</div>
+      <div class="product-desc">The complete B2B ordering and delivery management platform for food and bakery manufacturers. Used daily in Jabalpur.</div>
+      <ul class="product-features">
+        <li>Buyer ordering portal with credit limits</li>
+        <li>Agent delivery with GPS + OTP verification</li>
+        <li>Factory production with AI forecasting</li>
+        <li>Real-time ledger and payment collection</li>
+        <li>WhatsApp notifications at every step</li>
+      </ul>
+      <a href="https://edgify.vercel.app" class="product-link">Launch app <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="product-card">
+      <div class="product-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M2 20h20M4 20V8l8-6 8 6v12"/></svg>
+      </div>
+      <div class="product-name">Edgify Factory</div>
+      <div class="product-tag">Module · Included</div>
+      <div class="product-desc">AI-powered production planning for factory teams. Know exactly what to produce every day based on real orders.</div>
+      <ul class="product-features">
+        <li>Daily production targets from orders</li>
+        <li>AI demand forecasting with Gemini</li>
+        <li>Wastage and skip tracking</li>
+        <li>Production history and audit</li>
+      </ul>
+      <a href="https://edgify.vercel.app/factory" class="product-link">View factory <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="product-card">
+      <div class="product-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="m16 8 4 2v6h-4"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <div class="product-name">Edgify Agent</div>
+      <div class="product-tag">Mobile App · Included</div>
+      <div class="product-desc">Field delivery app for agents and drivers. QR scan, GPS verification, OTP collection, and cash handover — all on mobile.</div>
+      <ul class="product-features">
+        <li>QR code scan or manual token entry</li>
+        <li>GPS geofencing per store</li>
+        <li>Delivery manifest with navigation</li>
+        <li>Cash, UPI, and Due payment modes</li>
+      </ul>
+      <a href="https://edgify.vercel.app/agent" class="product-link">View agent app <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features" style="max-width:1200px;margin:0 auto">
+  <div class="text-center">
+    <div class="section-tag">Features</div>
+    <div class="section-title">Everything connected.<br>Nothing manual.</div>
+    <div class="section-sub">Built for the real complexity of B2B manufacturing operations in India.</div>
+  </div>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-icon">🤖</div>
+      <div class="feature-title">AI Business Intelligence</div>
+      <div class="feature-desc">Gemini AI analyses your orders, inventory, and buyer patterns. Get production forecasts and demand insights daily.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📱</div>
+      <div class="feature-title">WhatsApp at Every Step</div>
+      <div class="feature-desc">Order confirmations, delivery OTPs, payment receipts, and balance reminders — all via WhatsApp automatically.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📍</div>
+      <div class="feature-title">GPS Geofencing</div>
+      <div class="feature-desc">Every delivery is GPS-verified. Know if your agent actually reached the store. Full audit trail with location data.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💰</div>
+      <div class="feature-title">Real-time Ledger</div>
+      <div class="feature-desc">Every delivery, payment, and return automatically updates the ledger. Outstanding balances always accurate.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔐</div>
+      <div class="feature-title">OTP Verified Deliveries</div>
+      <div class="feature-desc">No delivery without buyer confirmation. 6-digit OTP sent to buyer's WhatsApp. Master OTP for admin override.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🗺️</div>
+      <div class="feature-title">Zone Management</div>
+      <div class="feature-desc">Automatic buyer zone detection from address. Zone-wise reports show top buyers, revenue, and delivery density.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">8 Report Types</div>
+      <div class="feature-desc">Revenue, ageing, collection, zone, agent performance, items, and buyer reports. CSV export built in.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🏭</div>
+      <div class="feature-title">Factory to Delivery</div>
+      <div class="feature-desc">Production quantities flow directly to dispatch. Inventory auto-updated on every delivery. Zero manual entry.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Enterprise Security</div>
+      <div class="feature-desc">Bcrypt password hashing, Row Level Security on all tables, full audit log, session management, error boundaries.</div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section id="how" style="max-width:1100px;margin:0 auto">
+  <div class="text-center">
+    <div class="section-tag">How it works</div>
+    <div class="section-title">From order to cash.<br>Fully automated.</div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Buyer orders</div>
+      <div class="step-desc">Buyer logs in, places order for next-day delivery. Admin notified via WhatsApp instantly.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Factory produces</div>
+      <div class="step-desc">AI forecasts quantities. Factory team enters production. Inventory updated automatically.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Agent delivers</div>
+      <div class="step-desc">Agent scans QR, GPS verified, OTP confirmed. Delivery recorded with items and amounts.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Payment collected</div>
+      <div class="step-desc">Cash, UPI, or online. Ledger updated. WA receipt sent to buyer. Balance always accurate.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="section-tag">Get started</div>
+  <div class="cta-title">Ready to run your<br>operations on <span style="color:#22c55e">EdgifyOS</span>?</div>
+  <div class="cta-sub">Join the waitlist. We'll reach out to onboard your team.</div>
+  <form class="cta-form" onsubmit="handleSubmit(event)">
+    <input type="tel" class="cta-input" placeholder="Your WhatsApp number" id="waitlist-phone" required>
+    <button type="submit" class="cta-btn">Join Waitlist</button>
+  </form>
+  <div class="cta-note" id="submit-msg">No spam. We'll WhatsApp you directly.</div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">Edgify<span>OS</span></div>
+      <p>The operating system for B2B manufacturers. Orders, deliveries, factory, and payments — all connected.</p>
+      <p style="margin-top:12px;color:rgba(255,255,255,0.25);font-size:13px">Jabalpur, Madhya Pradesh, India</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <a href="https://edgify.vercel.app">Edgify B2B</a>
+      <a href="https://edgify.vercel.app/factory">Edgify Factory</a>
+      <a href="https://edgify.vercel.app/agent">Edgify Agent</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/terms">Terms</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="https://edgify.vercel.app/terms">Terms of Service</a>
+      <a href="https://edgify.vercel.app/privacy">Privacy Policy</a>
+      <a href="https://edgify.vercel.app/shipping">Shipping Policy</a>
+      <a href="https://edgify.vercel.app/refund">Refund Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Edgify Multitrade Pvt Ltd. All rights reserved.</span>
+    <span>edgifyos.com</span>
+  </div>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault()
+  const phone = document.getElementById('waitlist-phone').value
+  const msg = document.getElementById('submit-msg')
+  // Send to WhatsApp notify API
+  fetch('https://edgify.vercel.app/api/notify', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({event:'order_placed', data:{phone:'9981155473', company:'WAITLIST', order_id: phone, total:'0', placed_by:'edgifyos.com'}})
+  }).catch(()=>{})
+  msg.textContent = '✓ Added to waitlist! We\'ll WhatsApp you shortly.'
+  msg.style.color = '#22c55e'
+  document.getElementById('waitlist-phone').value = ''
+}
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1'
+      e.target.style.transform = 'translateY(0)'
+    }
+  })
+}, {threshold: 0.1})
+
+document.querySelectorAll('.feature, .product-card, .step').forEach(el => {
+  el.style.opacity = '0'
+  el.style.transform = 'translateY(20px)'
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease'
+  observer.observe(el)
+})
+</script>
+</body>
+</html>
